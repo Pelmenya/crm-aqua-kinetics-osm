@@ -12,12 +12,6 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DATA: ${POSTGRES_DATA}
       POSTGRES_DB: ${POSTGRES_DB}
-    networks:
-      - crm_osm_network
 
 volumes:
   postgres_osm_data:
-
-networks:
-  crm_network_osm:
-    driver: bridge
