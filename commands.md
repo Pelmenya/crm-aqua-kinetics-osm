@@ -18,12 +18,16 @@ osm2pgsql --create --slim -d aqua_kinetics_osm -U postgres -G --hstore /data/cen
     docker exec -it postgres_postgis_osm bash
 ```
 
-```bash
-pg_dump -U postgres -d aqua_kinetics_osm -F c -b -v -f /pg_dumps/aqua_kinetics_osm.dump
-```
+# Dump
 
 ```bash
-exit
+pg_dump -U postgres -d aqua_kinetics_osm -F c -b -v -f /pg_dumps/aqua_kinetics_osm_central_region.dump
+```
+
+# Restore
+
+```bash
+pg_restore -U postgres -d aqua_kinetics_osm -v /pg_dumps/aqua_kinetics_osm_central_region.dump
 ```
 
 Дамп будет сохранен в папке pg_dumps на вашей локальной машине.
@@ -32,7 +36,7 @@ exit
 Если вам нужно будет восстановить базу данных, вы можете использовать команду pg_restore, указав путь к дампу в смонтированной папке:
 bashdocker exec -it postgres_postgis_osm bash
 createdb -U postgres aqua_kinetics_osm_restore
-pg_restore -U postgres -d aqua_kinetics_osm_restore -v /pg_dumps/aqua_kinetics_osm.dump
+pg_restore -U postgres -d aqua_kinetics_osm_restore -v /pg_dumps/aqua_kinetics_osm_central_region.dump
 exit
 
 Преимущества монтирования папки для дампов:

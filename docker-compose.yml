@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres_postgis_osm:
     build: ./  # Укажите путь к директории, где находится ваш Dockerfile
