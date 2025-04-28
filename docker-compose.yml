@@ -1,18 +1,42 @@
-services: 
+version: '3.8'
+
+services:
   postgres_postgis_osm:
-    build: ./  # Укажите путь к директории, где находится ваш Dockerfile для PostgreSQL и расширений
+    build: ./  # Укажите путь к директории, где находится ваш Dockerfile
     container_name: postgres_postgis_osm
     restart: always
     volumes:
       - postgres_osm_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./central-fed-district-latest.osm.pbf:/data/central-fed-district-latest.osm.pbf  # Монтируем файл OSM
-      - ./pg_dumps:/pg_dumps  # Монтируем папку для дампов
+      - ./central-fed-district-latest.osm.pbf:/data/central-fed-district-latest.osm.pbf
+      - ./pg_dumps:/pg_dumps
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DATA: ${POSTGRES_DATA}
       POSTGRES_DB: ${POSTGRES_DB}
 
+  adminer_pgadmin4:
+    image: dpage/pgadmin4
+    container_name: adminer_pgadmin4
+    restart: always
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - 3030:80
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+
 volumes:
   postgres_osm_data:
+  pgadmin_data:

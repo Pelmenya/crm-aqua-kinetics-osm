@@ -13,9 +13,19 @@ osm2pgsql --create --slim -d aqua_kinetics_osm -U postgres -G --hstore /data/cen
 
 Создание дампа в смонтированной папке:
 Теперь, когда папка pg_dumps смонтирована в контейнере, вы можете создать дамп непосредственно в ней:
-bashdocker exec -it postgres_postgis_osm bash
+
+```bash
+    docker exec -it postgres_postgis_osm bash
+```
+
+```bash
 pg_dump -U postgres -d aqua_kinetics_osm -F c -b -v -f /pg_dumps/aqua_kinetics_osm.dump
+```
+
+```bash
 exit
+```
+
 Дамп будет сохранен в папке pg_dumps на вашей локальной машине.
 
 Восстановление из дампа:
