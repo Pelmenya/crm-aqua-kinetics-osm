@@ -24,7 +24,7 @@ docker exec -it postgres_postgis_osm bash
 ```bash
 ogr2ogr \
     -f PGDUMP \
-    /vsistdout/ "/data/central-fed-district-latest.osm.pbf" \
+    /vsistdout/ "/data/kaliningrad-latest.osm.pbf" \
     -nln "osm_lines" \
     -nlt LINESTRING \
     -progress \

@@ -6,7 +6,7 @@ services:
     volumes:
       - postgres_osm_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./central-fed-district-latest.osm.pbf:/data/central-fed-district-latest.osm.pbf
+      - ./kaliningrad-latest.osm.pbf:/data/kaliningrad-latest.osm.pbf
       - ./pg_dumps:/pg_dumps
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
