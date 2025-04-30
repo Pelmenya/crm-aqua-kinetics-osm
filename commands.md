@@ -63,22 +63,27 @@ bashdocker-compose build
 bashdocker-compose up -d
 
 Использование ogr2ogr для импорта данных: После запуска контейнера войдите в контейнер, используя docker exec, и выполните команду ogr2ogr.
-bashdocker exec -it postgres_postgis_osm bash
+
+```bash
+docker exec -it postgres_postgis_osm bash
+```
 
 Выполнение команды ogr2ogr: Внутри контейнера выполните команду ogr2ogr, чтобы преобразовать и импортировать данные в базу данных PostgreSQL/PostGIS:
-bashogr2ogr 
--f PGDUMP 
-/vsistdout/ "/data/central-fed-district-latest.osm.pbf" 
--nln "osm_lines" 
--nlt LINESTRING 
--progress 
---config PG_USE_COPY YES 
---config GEOMETRY_NAME the_geom 
---config OSM_COMPRESS_NODES YES 
---config OSM_CONFIG_FILE "osmconf.ini" 
--sql "select * from lines where highway is not null" 
--lco FID=id 
-| psql -U postgres -d aqua_kinetics_osm
+
+```bash
+ogr2ogr \
+    -f PGDUMP \
+    /vsistdout/ "/data/central-fed-district-latest.osm.pbf" \
+    -nln "osm_lines" \
+    -nlt LINESTRING \
+    -progress \
+    --config PG_USE_COPY YES \
+    --config GEOMETRY_NAME the_geom \
+    --config OSM_COMPRESS_NODES YES \
+    -sql "select * from lines where highway is not null" \
+    -lco FID=id \
+    | psql -U postgres -d aqua_kinetics_osm
+```
 
 Проверка данных: После выполнения команды ogr2ogr вы можете проверить, были ли данные успешно импортированы, подключившись к вашей базе данных, используя psql или PgAdmin, и выполнив запросы к таблице osm_lines.
 
