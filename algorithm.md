@@ -62,7 +62,7 @@ SELECT
 FROM
   osm_lines
 WHERE
-  highway IN (
+  highway IN (                                    -- Только авто дороги
     'motorway',
     'motorway_link',
     'trunk',
