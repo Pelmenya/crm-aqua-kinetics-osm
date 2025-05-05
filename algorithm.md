@@ -58,11 +58,26 @@ SELECT
   ST_Length(_ogr_geometry_::geography) AS length, -- Длина в метрах
   ST_StartPoint(_ogr_geometry_) AS start_point,   -- Начальная точка
   ST_EndPoint(_ogr_geometry_) AS end_point,       -- Конечная точка
-  _ogr_geometry_  AS way                          -- Геометрия линии
+  _ogr_geometry_ AS way                           -- Геометрия линии
 FROM
   osm_lines
 WHERE
-  highway IS NOT NULL;
+  highway IN (
+    'motorway',
+    'motorway_link',
+    'trunk',
+    'trunk_link',
+    'primary',
+    'primary_link',
+    'secondary',
+    'secondary_link',
+    'tertiary',
+    'tertiary_link',
+    'residential',
+    'living_street',
+    'unclassified',
+    'road'
+  );
 ```
 
 ### Шаг 2: Добавление столбцов для расчета топологии
