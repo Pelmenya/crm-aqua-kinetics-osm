@@ -24,7 +24,7 @@ docker exec -it postgres_postgis_osm bash
 ```bash
 ogr2ogr \
     -f PGDUMP \
-    /vsistdout/ "/data/kaliningrad-latest.osm.pbf" \
+    /vsistdout/ "/data/central-fed-district-latest.osm.pbf" \
     -nln "osm_lines" \
     -nlt LINESTRING \
     -progress \
@@ -120,6 +120,22 @@ SELECT * FROM pgr_dijkstra(
 
 ```sql
 UPDATE ways SET cost = length, reverse_cost = length;
+```
+
+### Шаг 7: Добавление индексов
+
+Индексы на важные столбцы
+Индекс на столбец gid: Хотя gid уже является первичным ключом, и индекс создается автоматически, это важно отметить.
+
+```sql
+-- Индекс на столбец `source`
+CREATE INDEX idx_ways_source ON ways(source);
+
+-- Индекс на столбец `target`
+CREATE INDEX idx_ways_target ON ways(target);
+
+-- Индекс на столбец `way` для ускорения пространственных запросов
+CREATE INDEX idx_ways_way ON ways USING GIST(way);
 ```
 
 ## Альтернативный подход
