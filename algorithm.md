@@ -62,7 +62,7 @@ SELECT
 FROM
   osm_lines
 WHERE
-  highway IN (                                    -- Только авто дороги
+  highway IN (                                    -- Только авто дороги. ВАЖНО!!! Иначе не построится сеть.
     'motorway',
     'motorway_link',
     'trunk',
@@ -169,7 +169,7 @@ SELECT p.id, n.node_id
 FROM temp_points p
 JOIN LATERAL (
     SELECT
-        w.source AS node_id, -- от источника или начала дороги
+        w.source AS node_id, -- от источника или начала дороги, если брать gid не срабатывает
         ST_ClosestPoint(w.way, p.geom) AS closest_point
     FROM ways w
         WHERE ST_DWithin(p.geom, w.way, 0.01)
@@ -250,6 +250,8 @@ start_id := 42512
 |  3  | 580467 |  190971.01145703974  |   534664.7242922849     |
 |  4  | 168721 |  382112.3040575456   |   916777.0283498305     |
 |  5  | 42512  |  661304.8515993193   |  1578081.8799491497     |
+
+Выезжаем из Воронежа по всем городам выше и возвращаемся в него. Мин растояние обхода 1578 км 81 м.
 
 ---
 
