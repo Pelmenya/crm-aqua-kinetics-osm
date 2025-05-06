@@ -43,3 +43,7 @@ exit
 Безопасность данных: Хранение дампов на локальной машине позволяет легко выполнять резервное копирование и защиту данных.
 
 UPDATE ways SET source = NULL, target = NULL;
+
+```cmd
+osm2pgsql --create --slim -d aqua_kinetics_osm -U postgres -G --hstore /data/central-fed-district-latest.osm.pbf
+```
