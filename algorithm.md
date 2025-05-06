@@ -102,7 +102,7 @@ UPDATE ways SET cost = length, reverse_cost = length;
 Важный параметр `tolerance = 0.000001`
 
 ```sql
-SELECT pgr_createTopology('ways', 0.000001, 'way', 'gid');
+SELECT pgr_createTopology('ways', 0.01, 'way', 'gid');
 ```
 
 #### Что такое `tolerance`?
@@ -129,7 +129,7 @@ SELECT * FROM pgr_connectedComponents(
 ```
 
 ```sql
-SELECT * FROM pgr_analyzeGraph('ways', 0.0001, 'way', 'gid');
+SELECT * FROM pgr_analyzeGraph('ways', 0.01, 'way', 'gid');
 ```
 
 ### Шаг 6: Проверка кратчайшего пути
