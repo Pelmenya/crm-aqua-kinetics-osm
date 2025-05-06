@@ -128,6 +128,10 @@ SELECT * FROM pgr_connectedComponents(
 );
 ```
 
+```sql
+SELECT * FROM pgr_analyzeGraph('ways', 0.0001, 'way', 'gid');
+```
+
 ### Шаг 6: Проверка кратчайшего пути
 
 ```sql
